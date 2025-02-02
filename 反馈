@@ -1,0 +1,23 @@
+import discord
+
+# 创建一个Bot实例，command_prefix是指令前缀，可自行设定
+client = discord.Client(command_prefix='!')
+
+# 当机器人准备好时触发的事件
+@client.event
+async def on_ready():
+    print(f'Logged in as {client.user}')
+
+# 当收到消息时触发的事件
+@client.event
+async def on_message(message):
+    # 防止机器人回复自己的消息
+    if message.author == client.user:
+        return
+
+    # 这里设置触发机器人发消息的条件，比如收到特定关键词
+    if '你好' in message.content:
+        await message.channel.send('你好呀！')
+
+# 运行机器人，将'YOUR_BOT_TOKEN'替换为实际的机器人令牌
+client.run('YOUR_BOT_TOKEN')
